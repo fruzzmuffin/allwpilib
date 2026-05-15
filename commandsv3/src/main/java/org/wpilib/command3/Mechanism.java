@@ -5,6 +5,7 @@
 package org.wpilib.command3;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import org.wpilib.annotation.NoDiscard;
 import org.wpilib.units.measure.Time;
@@ -143,6 +144,19 @@ public class Mechanism {
    */
   public Command idleFor(Time duration) {
     return idle().withTimeout(duration);
+  }
+
+  /**
+   * Returns a command that idles this mechanism until the condition is met.
+   * 
+   * <p>More configuration options are needed after calling this function before the command can be
+   * created. See {@link ParallelGroupBuilder} for details.
+   * 
+   * @param condition The condition to idle until.
+   * @return A new idle command.
+   */
+  public ParallelGroupBuilder idleUntil(BooleanSupplier condition){
+    return idle().until(condition);
   }
 
   /**
